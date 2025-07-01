@@ -1,1 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Interaktif Kreatif</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, #ff7eb3, #ff758c);
+            overflow: hidden;
+            transition: background 0.5s;
+        }
 
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: pop 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff5678;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff7eb3;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background-color: #ff5678;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ff7eb3, #ff758c);
+            color: white;
+            border-radius: 5px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .delete-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background: white;
+            color: #ff5678;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .delete-btn:hover {
+            transform: scale(1.2);
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            from {
+                color: #ff7eb3;
+            }
+            to {
+                color: #ff5678;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List Warna-Warni</h1>
+        <input type="text" id="taskInput" placeholder="Masukkan tugas baru..." />
+        <button id="addTaskBtn">Tambah</button>
+        <button id="themeToggleBtn">Ganti Tema</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        // Elemen DOM
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const taskList = document.getElementById('taskList');
+        let isDarkTheme = false;
+
+        // Tambahkan tugas
+        addTaskBtn.addEventListener('click', () => {
+            const taskValue = taskInput.value.trim();
+            if (taskValue) {
+                const li = document.createElement('li');
+                li.textContent = taskValue;
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Hapus';
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.addEventListener('click', () => taskList.removeChild(li));
+
+                li.appendChild(deleteBtn);
+                taskList.appendChild(li);
+                taskInput.value = '';
+            } else {
+                alert('Masukkan tugas terlebih dahulu!');
+            }
+        });
+
+        // Ganti tema
+        themeToggleBtn.addEventListener('click', () => {
+            if (isDarkTheme) {
+                document.body.style.background = 'linear-gradient(to right, #ff7eb3, #ff758c)';
+                isDarkTheme = false;
+            } else {
+                document.body.style.background = 'linear-gradient(to right, #2e2e2e, #1a1a1a)';
+                isDarkTheme = true;
+            }
+        });
+    </script>
+</body>
+</html>
